@@ -32,10 +32,17 @@ function isValidRow(range) {
 
 // copy over rows
 function copyRow(fromRange, toRange) {
-  toRange.setValues(fromRange.getValues())
+  toRange.setValues(fromRange.getValues());
+}
+
+// get row to copy over
+function getRow(fromRange) {
+  return fromRange.getValues();
 }
 
 function updatePbiSheet(fromSheet, toSheet) {
+  
+  let res = []
   
   // data
   let dataRange = fromSheet.getDataRange();
@@ -59,12 +66,22 @@ function updatePbiSheet(fromSheet, toSheet) {
     let lastRow = toSheet.getLastRow() + 1;
     let toRange = toSheet.getRange(lastRow, colStart , 1, colEnd);
     
-    copyRow(fromRange, toRange); 
+    let tmp = getRow(fromRange)[0]; // idx 0 to get first & only row
+    res.push(tmp);
   }
+
+  return res;
 }
 
 
 // MAIN: run this function to update sheets
+// @customfunction
 function update() {
-  updatePbiSheet(senaiSheet, testSheet);
+  return updatePbiSheet(senaiSheet, testSheet);
+}
+
+// experiment: use this function to update things upon edit
+function onEdit(e) {
+  var range = e.range;
+  update()
 }
