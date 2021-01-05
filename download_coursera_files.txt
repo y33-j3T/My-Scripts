@@ -1,0 +1,11 @@
+- Download files
+rm -f ~/workspace.tar.gz && rm  -f ~/work/workspace.tar.gz
+tar -czf ~/workspace.tar.gz ~/work
+mv ~/workspace.tar.gz ~/work/workspace.tar.gz
+
+- Download files > 100MB
+rm -f ~/workspace.tar.gz && rm  -f ~/work/workspace.tar.gz
+tar -czf - ~/work | split --bytes=200MB - ~/workspace.tar.gz
+mv ~/workspace.tar.gz* ~/work/
+cat workspace.tar.gza* > workspace.tar.gz (execute this after download)
+
